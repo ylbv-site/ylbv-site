@@ -5,6 +5,8 @@ export default function HomePage() {
     <>
       <Head>
         <title>YLBV LTD | Telecom & Digital Marketing Growth Consultant</title>
+<link rel="icon" href="/favicon.ico" />
+
         <meta
           name="description"
           content="Helping telecom operators and digital agencies boost sales, streamline business development, and scale sustainably. Based in London, working globally."
