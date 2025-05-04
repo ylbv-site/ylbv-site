@@ -5,7 +5,7 @@ export default function HomePage() {
     <>
       <Head>
         <title>YLBV LTD | Telecom & Digital Marketing Growth Consultant</title>
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon-new.ico" />
 
         <meta
           name="description"
