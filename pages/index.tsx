@@ -6,7 +6,6 @@ export default function HomePage() {
       <Head>
         <title>YLBV LTD | Telecom & Digital Marketing Growth Consultant</title>
         <link rel="icon" href="/favicon-new.ico" />
-
         <meta
           name="description"
           content="Helping telecom operators and digital agencies boost sales, streamline business development, and scale sustainably. Based in London, working globally."
@@ -58,8 +57,8 @@ export default function HomePage() {
                 Identify bottlenecks and deploy practical, growth-driven solutions tailored to your market.
               </p>
 
-              <h3 className="text-xl font-semibold mt-6">IT Services for Telecoms</h3>
-              <p className="mt-2 text-base text-gray-600">
+              <h3 className="text-2xl font-medium mt-6 mb-2">IT Services for Telecoms</h3>
+              <p className="text-gray-700">
                 Design and implement efficient systems to support telecom operations, from traffic management to infrastructure scaling.
               </p>
             </div>
