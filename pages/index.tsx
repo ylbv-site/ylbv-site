@@ -63,6 +63,17 @@ export default function HomePage() {
               </p>
             </div>
           </section>
+
+          <section className="border-t border-gray-200 pt-10 mt-10">
+            <h3 className="text-xl font-semibold mb-2">Get in Touch</h3>
+            <p className="text-gray-700 mb-1">Andrii Sydorenko</p>
+            <p className="text-gray-700 mb-1">
+              <a href="mailto:andrii@ylbvconsulting.co.uk" className="underline text-blue-600">
+                andrii@ylbvconsulting.co.uk
+              </a>
+            </p>
+            <p className="text-gray-700">+44 7846 516144</p>
+          </section>
         </div>
       </main>
     </>
