@@ -69,7 +69,7 @@ export default function HomePage() {
             <p className="text-gray-700 mb-1">Andrii Sydorenko</p>
             <p className="text-gray-700 mb-1">
               <a href="mailto:andriіsydorenko@ylbvconsulting.co.uk" className="underline text-blue-600">
-                andrii@ylbvconsulting.co.uk
+                andriisydorenko@ylbvconsulting.co.uk
               </a>
             </p>
             <p className="text-gray-700">+44 7846 516144</p>
