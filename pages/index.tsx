@@ -56,10 +56,19 @@ export default function HomePage() {
               <p className="text-gray-700">
                 Identify bottlenecks and deploy practical, growth-driven solutions tailored to your market.
               </p>
+            </div>
 
-              <h3 className="text-2xl font-medium mt-6 mb-2">IT Services for Telecoms</h3>
+            <div>
+              <h3 className="text-2xl font-medium mb-2">IT Services for Telecoms</h3>
               <p className="text-gray-700">
                 Design and implement efficient systems to support telecom operations, from traffic management to infrastructure scaling.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-medium mb-2">AI-Powered Traffic Intelligence</h3>
+              <p className="text-gray-700">
+                We use machine learning models to detect anomalies in voice traffic patterns, helping telecom operators optimize routing and improve network reliability.
               </p>
             </div>
           </section>
@@ -68,7 +77,7 @@ export default function HomePage() {
             <h3 className="text-xl font-semibold mb-2">Get in Touch</h3>
             <p className="text-gray-700 mb-1">Andrii Sydorenko</p>
             <p className="text-gray-700 mb-1">
-              <a href="mailto:andriіsydorenko@ylbvconsulting.co.uk" className="underline text-blue-600">
+              <a href="mailto:andriisydorenko@ylbvconsulting.co.uk" className="underline text-blue-600">
                 andriisydorenko@ylbvconsulting.co.uk
               </a>
             </p>
