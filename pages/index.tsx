@@ -17,73 +17,79 @@ export default function HomePage() {
         <meta property="og:image" content="https://ylbvconsulting.co.uk/preview.jpg" />
       </Head>
 
-      <main className="min-h-screen bg-white text-gray-900 px-8 py-16 flex items-start justify-center font-sans">
-        <div className="max-w-3xl w-full text-left">
-          <header className="mb-12">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-800">YLBV LTD</h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Private Limited Company registered in England & Wales · Company No. 12345678
-            </p>
-          </header>
+      <main className="page-wrap">
 
-          <section className="mb-12">
-            <h2 className="text-4xl md:text-5xl font-semibold leading-tight mb-4">
-              Growth Strategy for Telecom & Digital Marketing
-            </h2>
-            <p className="text-lg text-gray-700 max-w-prose">
-              Helping telecom operators and digital agencies boost sales, streamline business development,
-              and scale sustainably.
-            </p>
-          </section>
+        {/* ── Header ── */}
+        <header className="site-header">
+          <div className="logo">
+            YLBV LTD
+            <span>Telecom &amp; Digital Marketing</span>
+          </div>
+          <nav className="site-nav">
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </header>
 
-          <section className="grid gap-10 mb-16">
-            <div>
-              <h3 className="text-2xl font-medium mb-2">Sales Strategy</h3>
-              <p className="text-gray-700">
-                Build effective go-to-market plans, optimize your funnel, and accelerate conversions.
-              </p>
-            </div>
+        {/* ── Hero ── */}
+        <section className="hero">
+          <h1>
+            Growth Strategy for<br />
+            Telecom &amp; Digital Marketing
+          </h1>
+          <p>
+            Helping telecom operators and digital agencies boost sales,
+            streamline business development, and scale sustainably.
+            Based in London, working globally.
+          </p>
+        </section>
 
-            <div>
-              <h3 className="text-2xl font-medium mb-2">Business Development</h3>
-              <p className="text-gray-700">
-                Set up scalable B2B systems and align commercial teams for long-term revenue.
-              </p>
-            </div>
+        {/* ── Services ── */}
+        <section className="services" id="services">
+          <div className="svc">
+            <h3>Sales Strategy</h3>
+            <p>Build effective go-to-market plans, optimize your funnel, and accelerate conversions.</p>
+          </div>
+          <div className="svc">
+            <h3>Business Development</h3>
+            <p>Set up scalable B2B systems and align commercial teams for long-term revenue.</p>
+          </div>
+          <div className="svc">
+            <h3>Consulting &amp; Advisory</h3>
+            <p>Identify bottlenecks and deploy practical, growth-driven solutions tailored to your market.</p>
+          </div>
+          <div className="svc">
+            <h3>IT Services for Telecoms</h3>
+            <p>Design and implement efficient systems to support telecom operations, from traffic management to infrastructure scaling.</p>
+          </div>
+          <div className="svc svc--wide">
+            <h3>AI-Powered Traffic Intelligence</h3>
+            <p>Machine learning models to detect anomalies in voice traffic patterns, helping telecom operators optimise routing and improve network reliability.</p>
+          </div>
+        </section>
 
-            <div>
-              <h3 className="text-2xl font-medium mb-2">Consulting & Advisory</h3>
-              <p className="text-gray-700">
-                Identify bottlenecks and deploy practical, growth-driven solutions tailored to your market.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-medium mb-2">IT Services for Telecoms</h3>
-              <p className="text-gray-700">
-                Design and implement efficient systems to support telecom operations, from traffic management to infrastructure scaling.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-medium mb-2">AI-Powered Traffic Intelligence</h3>
-              <p className="text-gray-700">
-                We use machine learning models to detect anomalies in voice traffic patterns, helping telecom operators optimize routing and improve network reliability.
-              </p>
-            </div>
-          </section>
-
-          <section className="border-t border-gray-200 pt-10 mt-10">
-            <h3 className="text-xl font-semibold mb-2">Get in Touch</h3>
-            <p className="text-gray-700 mb-1">Andrii Sydorenko</p>
-            <p className="text-gray-700 mb-1">
-              <a href="mailto:andriisydorenko@ylbvconsulting.co.uk" className="underline text-blue-600">
+        {/* ── Contact ── */}
+        <section className="contact" id="contact">
+          <div className="contact-info">
+            <h2>Get in Touch</h2>
+            <p>Andrii Sydorenko</p>
+            <p>
+              <a href="mailto:andriisydorenko@ylbvconsulting.co.uk">
                 andriisydorenko@ylbvconsulting.co.uk
               </a>
             </p>
-            <p className="text-gray-700">+44 7846 516144</p>
-          </section>
-        </div>
+            <p>+44 7846 516144</p>
+          </div>
+          <a href="mailto:andriisydorenko@ylbvconsulting.co.uk" className="cta-btn">
+            Send a Message
+          </a>
+        </section>
+
+        {/* ── Footer ── */}
+        <footer className="site-footer">
+          <p>© {new Date().getFullYear()} YLBV LTD · Private Limited Company registered in England &amp; Wales</p>
+        </footer>
+
       </main>
     </>
   );

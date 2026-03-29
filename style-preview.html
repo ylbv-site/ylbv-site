@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YLBV — Style Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+      min-height: 100vh;
+      gap: 24px;
+    }
+
+    /* ── Switcher UI ── */
+    .switcher {
+      display: flex;
+      gap: 8px;
+      background: #2a2a2a;
+      padding: 6px;
+      border-radius: 12px;
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+    }
+    .switcher button {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .switcher button.active {
+      background: #fff;
+      color: #111;
+    }
+
+    /* ── Frame ── */
+    .frame {
+      width: 100%;
+      max-width: 820px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    }
+
+    /* ── Browser chrome ── */
+    .browser-bar {
+      background: #2d2d2d;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #febc2e; }
+    .dot.g { background: #28c840; }
+    .url-bar {
+      flex: 1;
+      background: #1a1a1a;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #888;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ────────────────────────────────────────────
+       PREVIEW PANELS — shown/hidden by JS
+    ──────────────────────────────────────────── */
+    .preview { display: none; }
+    .preview.active { display: block; }
+
+
+    /* ══════════════════════════════════════════
+       OPTION 1 — EDITORIAL
+    ══════════════════════════════════════════ */
+    .p1 {
+      background: #F9F7F4;
+      font-family: 'Inter', sans-serif;
+      color: #1c1c1c;
+      padding: 56px 64px;
+    }
+    .p1 header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 72px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #d8d4cf;
+    }
+    .p1 .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: #1c1c1c;
+    }
+    .p1 .logo span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #8a8278;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .p1 nav { display: flex; gap: 28px; }
+    .p1 nav a {
+      font-size: 13px;
+      color: #6b6560;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .p1 .hero { margin-bottom: 64px; }
+    .p1 .hero h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      line-height: 1.15;
+      font-weight: 400;
+      color: #1c1c1c;
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+    .p1 .hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #5a5550;
+      max-width: 480px;
+    }
+    .p1 .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 56px;
+    }
+    .p1 .svc {
+      padding: 28px 32px 28px 24px;
+      border-left: 2px solid #c8c2ba;
+      margin: 0 0 24px 0;
+    }
+    .p1 .svc:nth-child(odd) { margin-right: 32px; }
+    .p1 .svc h3 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      color: #1c1c1c;
+    }
+    .p1 .svc p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #6b6560;
+    }
+    .p1 .contact {
+      border-top: 1px solid #d8d4cf;
+      padding-top: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .p1 .contact-info h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .p1 .contact-info p {
+      font-size: 14px;
+      color: #6b6560;
+      line-height: 1.8;
+    }
+    .p1 .contact-info a { color: #1c1c1c; }
+    .p1 .cta-btn {
+      background: #1c1c1c;
+      color: #F9F7F4;
+      border: none;
+      padding: 12px 28px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+
+    /* ══════════════════════════════════════════
+       OPTION 2 — DARK ANCHOR
+    ══════════════════════════════════════════ */
+    .p2 { background: #ffffff; font-family: 'Inter', sans-serif; }
+    .p2 .hero-dark {
+      background: #0D1117;
+      padding: 48px 64px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .p2 .hero-dark::before {
+      content: 'YLBV';
+      position: absolute;
+      right: -20px;
+      top: -30px;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -8px;
+      pointer-events: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .p2 nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+    .p2 .logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.06em;
+    }
+    .p2 nav-links { display: flex; gap: 24px; }
+    .p2 .nav-links { display: flex; gap: 24px; }
+    .p2 .nav-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+    .p2 .hero-content {}
+    .p2 .hero-tag {
+      display: inline-block;
+      border: 1px solid rgba(0,201,177,0.4);
+      color: #00C9B1;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .p2 .hero-dark h2 {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 20px;
+      max-width: 520px;
+    }
+    .p2 .hero-dark h2 strong {
+      font-weight: 600;
+      color: #fff;
+    }
+    .p2 .hero-dark p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .p2 .cta-btn {
+      background: #00C9B1;
+      color: #0D1117;
+      border: none;
+      padding: 13px 30px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .p2 .body-section {
+      padding: 56px 64px;
+    }
+    .p2 .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: #e8e8e8;
+      margin-bottom: 48px;
+    }
+    .p2 .svc {
+      background: #fff;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .p2 .svc-num {
+      font-size: 48px;
+      font-weight: 700;
+      color: #f0f0f0;
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+    .p2 .svc h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0D1117;
+    }
+    .p2 .svc p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.65;
+    }
+    .p2 .contact {
+      border-top: 1px solid #eee;
+      padding-top: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .p2 .contact h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .p2 .contact p {
+      font-size: 13.5px;
+      color: #666;
+      line-height: 1.8;
+    }
+    .p2 .contact a { color: #00C9B1; text-decoration: none; }
+
+
+    /* ══════════════════════════════════════════
+       OPTION 3 — STRUCTURED WARMTH
+    ══════════════════════════════════════════ */
+    .p3 { background: #fff; font-family: 'Inter', sans-serif; color: #1a1a1a; }
+    .p3 .topnav {
+      background: #fff;
+      border-bottom: 1px solid #efefef;
+      padding: 0 64px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+    }
+    .p3 .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #1a1a1a;
+    }
+    .p3 .nav-links { display: flex; gap: 28px; align-items: center; }
+    .p3 .nav-links a {
+      font-size: 13px;
+      color: #777;
+      text-decoration: none;
+    }
+    .p3 .nav-cta {
+      background: #C5973A;
+      color: #fff;
+      border: none;
+      padding: 7px 18px;
+      font-size: 12.5px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+    .p3 .hero {
+      padding: 72px 64px 64px;
+    }
+    .p3 .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C5973A;
+      margin-bottom: 16px;
+    }
+    .p3 .hero h2 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: #1a1a1a;
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+    .p3 .hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #555;
+      max-width: 460px;
+      margin-bottom: 32px;
+    }
+    .p3 .hero-actions { display: flex; gap: 12px; align-items: center; }
+    .p3 .btn-primary {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 13.5px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .p3 .btn-secondary {
+      background: none;
+      color: #C5973A;
+      border: none;
+      font-size: 13.5px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .p3 .services-band {
+      background: #F6F6F4;
+      padding: 52px 64px;
+    }
+    .p3 .band-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 32px;
+    }
+    .p3 .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .p3 .svc {
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      padding: 24px 22px;
+    }
+    .p3 .svc-icon {
+      width: 36px;
+      height: 36px;
+      background: #FDF6E9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 18px;
+    }
+    .p3 .svc h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #1a1a1a;
+    }
+    .p3 .svc p {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #777;
+    }
+    /* 5th card spans 2 cols visually by stretching last row */
+    .p3 .svc:last-child { grid-column: span 2; }
+    .p3 .contact-section {
+      padding: 52px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #efefef;
+    }
+    .p3 .contact-section h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .p3 .contact-section p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.8;
+    }
+    .p3 .contact-section a { color: #C5973A; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="switcher">
+    <button class="active" onclick="show(1)">① Editorial</button>
+    <button onclick="show(2)">② Dark Anchor</button>
+    <button onclick="show(3)">③ Structured Warmth</button>
+  </div>
+
+  <div class="frame">
+    <div class="browser-bar">
+      <div class="dots">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+      </div>
+      <div class="url-bar">ylbvconsulting.co.uk</div>
+    </div>
+
+    <!-- ══ OPTION 1 — EDITORIAL ══ -->
+    <div class="preview p1 active" id="p1">
+      <header>
+        <div class="logo">
+          YLBV LTD
+          <span>Telecom & Digital Marketing</span>
+        </div>
+        <nav>
+          <a href="#">Services</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <div class="hero">
+        <h2>Growth Strategy for Telecom & Digital Marketing</h2>
+        <p>Helping telecom operators and digital agencies boost sales, streamline business development, and scale sustainably.</p>
+      </div>
+
+      <div class="services">
+        <div class="svc">
+          <h3>Sales Strategy</h3>
+          <p>Build effective go-to-market plans, optimize your funnel, and accelerate conversions.</p>
+        </div>
+        <div class="svc">
+          <h3>Business Development</h3>
+          <p>Set up scalable B2B systems and align commercial teams for long-term revenue.</p>
+        </div>
+        <div class="svc">
+          <h3>Consulting & Advisory</h3>
+          <p>Identify bottlenecks and deploy practical, growth-driven solutions tailored to your market.</p>
+        </div>
+        <div class="svc">
+          <h3>IT Services for Telecoms</h3>
+          <p>Design and implement efficient systems to support telecom operations and infrastructure.</p>
+        </div>
+        <div class="svc" style="grid-column: span 2;">
+          <h3>AI-Powered Traffic Intelligence</h3>
+          <p>Machine learning models to detect anomalies in voice traffic, helping operators optimize routing and improve reliability.</p>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          <p>Andrii Sydorenko<br>
+            <a href="#">andriisydorenko@ylbvconsulting.co.uk</a><br>
+            +44 7846 516144
+          </p>
+        </div>
+        <button class="cta-btn">Send a Message</button>
+      </div>
+    </div>
+
+    <!-- ══ OPTION 2 — DARK ANCHOR ══ -->
+    <div class="preview p2" id="p2">
+      <div class="hero-dark">
+        <nav>
+          <div class="logo">YLBV LTD</div>
+          <div class="nav-links">
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <div class="hero-tag">Telecom & Digital Marketing</div>
+          <h2>Growth that <strong>scales</strong> with your business</h2>
+          <p>Helping telecom operators and digital agencies boost sales, streamline BD, and scale sustainably. Based in London, working globally.</p>
+          <button class="cta-btn">Get in Touch</button>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="services-grid">
+          <div class="svc">
+            <div class="svc-num">01</div>
+            <h3>Sales Strategy</h3>
+            <p>Build effective go-to-market plans, optimize your funnel, and accelerate conversions.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-num">02</div>
+            <h3>Business Development</h3>
+            <p>Set up scalable B2B systems and align commercial teams for long-term revenue.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-num">03</div>
+            <h3>Consulting & Advisory</h3>
+            <p>Identify bottlenecks and deploy practical, growth-driven solutions.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-num">04</div>
+            <h3>IT Services for Telecoms</h3>
+            <p>Design and implement efficient systems to support telecom operations.</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div>
+            <h3>Ready to grow?</h3>
+            <p>Andrii Sydorenko · <a href="#">andriisydorenko@ylbvconsulting.co.uk</a> · +44 7846 516144</p>
+          </div>
+          <button style="background:#0D1117;color:#fff;border:1px solid #333;padding:12px 24px;font-size:13px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;">Let's Talk →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ OPTION 3 — STRUCTURED WARMTH ══ -->
+    <div class="preview p3" id="p3">
+      <nav class="topnav">
+        <div class="logo">YLBV LTD</div>
+        <div class="nav-links">
+          <a href="#">Services</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <button class="nav-cta">Get in Touch</button>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <div class="hero-eyebrow">Telecom & Digital Marketing Consultant</div>
+        <h2>Growth Strategy, Built to Last</h2>
+        <p>Helping telecom operators and digital agencies boost sales, streamline BD, and scale sustainably. Based in London, working globally.</p>
+        <div class="hero-actions">
+          <button class="btn-primary">Let's Talk</button>
+          <button class="btn-secondary">See what I do →</button>
+        </div>
+      </div>
+
+      <div class="services-band">
+        <div class="band-label">What I do</div>
+        <div class="services-grid">
+          <div class="svc">
+            <div class="svc-icon">📈</div>
+            <h3>Sales Strategy</h3>
+            <p>Go-to-market plans, funnel optimization, and conversion acceleration.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-icon">🤝</div>
+            <h3>Business Development</h3>
+            <p>Scalable B2B systems and aligned commercial teams for long-term revenue.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-icon">💡</div>
+            <h3>Consulting & Advisory</h3>
+            <p>Practical, growth-driven solutions tailored to your market.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-icon">🖧</div>
+            <h3>IT Services for Telecoms</h3>
+            <p>Efficient systems for telecom operations, traffic management, and scaling.</p>
+          </div>
+          <div class="svc">
+            <div class="svc-icon">🤖</div>
+            <h3>AI-Powered Traffic Intelligence</h3>
+            <p>ML models for voice traffic anomaly detection, routing optimisation, and network reliability.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <div>
+          <h3>Get in Touch</h3>
+          <p>
+            Andrii Sydorenko<br>
+            <a href="#">andriisydorenko@ylbvconsulting.co.uk</a><br>
+            +44 7846 516144
+          </p>
+        </div>
+        <button style="background:#C5973A;color:#fff;border:none;padding:13px 28px;font-size:14px;font-weight:500;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;">Send a Message</button>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="color:#555;font-size:12px;margin-top:8px;">← This is a static preview. No changes have been made to your actual site.</p>
+
+  <script>
+    function show(n) {
+      document.querySelectorAll('.preview').forEach(el => el.classList.remove('active'));
+      document.getElementById('p' + n).classList.add('active');
+      document.querySelectorAll('.switcher button').forEach((btn, i) => {
+        btn.classList.toggle('active', i === n - 1);
+      });
+    }
+  </script>
+</body>
+</html>
